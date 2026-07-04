@@ -1,0 +1,18 @@
+# Python 캐시 및 컴파일 파일
+__pycache__/
+*.py[cod]
+
+# 가상환경
+venv/
+.venv/
+env/
+
+# Streamlit 개인 설정 및 비밀 정보
+.streamlit/
+
+# 개발 도구 설정
+.vscode/
+.idea/
+
+# 운영체제 생성 파일
+.DS_Store
