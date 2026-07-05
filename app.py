@@ -149,7 +149,7 @@ def show_quiz(data: dict) -> None:
     )
 
     image_path = DATA_FILE.parent / question["image"]
-    st.image(str(image_path), use_column_width=True)
+    st.image(str(image_path), use_container_width=True)
 
     option_texts = [option["text"] for option in question["options"]]
 
