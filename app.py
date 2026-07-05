@@ -64,11 +64,15 @@ def show_login() -> None:
         )
 
     if login_button:
+        print(f"[LOG] 로그인 버튼 클릭됨 / 입력 ID: {user_id}", flush=True)
+
         if user_id == CORRECT_USER_ID and password == CORRECT_PASSWORD:
+            print("[LOG] 로그인 성공", flush=True)
             st.session_state.logged_in = True
             st.success("로그인에 성공했습니다!")
             st.rerun()
         else:
+            print("[LOG] 로그인 실패", flush=True)
             st.error("아이디 또는 비밀번호가 올바르지 않습니다.")
 
 
@@ -107,6 +111,7 @@ def show_result(scores: dict, results: dict) -> None:
 
     with retry_area:
         if st.button("퀴즈 다시 하기", use_container_width=True):
+            print("[LOG] 퀴즈 다시 하기 버튼 클릭됨", flush=True)
             reset_quiz()
             st.rerun()
 
@@ -184,11 +189,18 @@ def show_quiz(data: dict) -> None:
         result_button = False
 
     if previous_button:
+        print(f"[LOG] 이전 질문 버튼 클릭됨 / 현재 Q{question_number}", flush=True)
         st.session_state.current_question -= 1
         st.rerun()
 
     if next_button or result_button:
+        print(
+            f"[LOG] Q{question_number} 버튼 클릭됨 / 선택 답변: {selected_text}",
+            flush=True
+        )
+
         if selected_text is None:
+            print(f"[LOG] Q{question_number} 답변 미선택", flush=True)
             st.warning("답변을 선택한 후 다음으로 넘어가 주세요.")
             return
 
@@ -204,6 +216,8 @@ def show_quiz(data: dict) -> None:
             st.rerun()
 
         if result_button:
+            print("[LOG] 여행지 추천받기 버튼 클릭됨", flush=True)
+
             unanswered_numbers = [
                 index
                 for index, item in enumerate(questions, start=1)
@@ -227,6 +241,7 @@ def show_quiz(data: dict) -> None:
                 selected_answers,
                 data["destinations"]
             )
+            print(f"[LOG] 퀴즈 결과 계산 완료 / 점수: {st.session_state.quiz_result}", flush=True)
             st.rerun()
 
 
@@ -241,6 +256,7 @@ def main() -> None:
     if st.session_state.logged_in:
         with logout_area:
             if st.button("로그아웃", use_container_width=True):
+                print("[LOG] 로그아웃 버튼 클릭됨", flush=True)
                 st.session_state.logged_in = False
                 reset_quiz()
                 st.rerun()
